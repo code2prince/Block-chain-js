@@ -47,10 +47,20 @@ class Blockchain{
  PrinceCoin.addBlock(new Block(1,'18/03/2023',{amount: 4}));
  PrinceCoin.addBlock(new Block(2,'20/03/2023',{amount: 6}));
 
- console.log('Is Block-chain valid??'  + PrinceCoin.isChainValid());   // Is Block-chain valid??true
+ console.log('Is Block-chain valid??: '  + PrinceCoin.isChainValid());   // Is Block-chain valid??: true
+
+// tempering with data
+PrinceCoin.chain[1].data = {amount: 100};
+
+PrinceCoin.chain[1].hash = PrinceCoin.chain[1].calculateHash();
+
+
+console.log('now Is Block-chain valid :'  + PrinceCoin.isChainValid());   // now Is Block-chain valid :false
+// we cann't tempered the blocks
 
 
 
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
  //console.log(JSON.stringify(PrinceCoin, null, 4));
 
  /*
