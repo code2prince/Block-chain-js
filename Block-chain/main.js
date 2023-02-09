@@ -43,6 +43,122 @@ class Blockchain{
         return true;
     }
 }
+
+
+// smart contract
+
+class SmartContract {
+    constructor() {
+      this.balance = 0;
+    }
+  
+    deposit(amount) {
+      this.balance += amount;
+    }
+  
+    withdraw(amount) {
+      if (this.balance >= amount) {
+        this.balance -= amount;
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
+
+
+
+  let GrovNestCoin = new Blockchain();
+  let myContract = new SmartContract();
+  
+  myContract.deposit(100);   
+  console.log(`Balance: ${myContract.balance}`);   // Balance: 100
+  
+  let result = myContract.withdraw(50); 
+  if (result) {
+    console.log(`Withdrew 50, balance is now ${myContract.balance}`);   //  //  Withdrew 50, balance is now 50
+  } else {
+    console.log(`Not enough funds to withdraw`);
+  }
+  
+  GrovNestCoin.addBlock(
+    new Block(1, "10/02/2023", { contract: myContract, action: "deposit", amount: 100 })
+  );
+  GrovNestCoin.addBlock(
+    new Block(2, "12/02/2023", { contract: myContract, action: "withdraw", amount: 50 })
+  );
+  GrovNestCoin.addBlock(
+    new Block(3, "13/02/2023", { contract: myContract, action: "withdraw", amount: 30 })
+  );
+  
+  console.log(JSON.stringify(GrovNestCoin, null, 4));
+
+  /*
+  {
+    "chain": [
+        {
+            "index": 0,
+            "timestamp": "06/02/2023",
+            "data": "Genesis block",
+            "prevHash": "0",
+            "hash": "8decad5de7fc6a926a1751d7bce55c97faea2d2b87ef5262933dcc59a75b4597"
+        },
+        {
+            "index": 1,
+            "timestamp": "10/02/2023",
+            "data": {
+                "contract": {
+                    "balance": 50
+                },
+                "action": "deposit",
+                "amount": 100
+            },
+            "prevHash": "8decad5de7fc6a926a1751d7bce55c97faea2d2b87ef5262933dcc59a75b4597",
+            "hash": "7566c68e8de8c97a3aaa3bc91771c62b13b870b289cb1bb43308c3bd06b1c516"
+        },
+        {
+            "index": 2,
+            "timestamp": "12/02/2023",
+            "data": {
+                "contract": {
+                    "balance": 50
+                },
+                "action": "withdraw",
+                "amount": 50
+            },
+            "prevHash": "7566c68e8de8c97a3aaa3bc91771c62b13b870b289cb1bb43308c3bd06b1c516",
+            "hash": "694fcd98cc6518fd25b5ef4221f430dbb2e5415e95accb8344b387af13af159a"
+        },
+          {
+            "index": 3,
+            "timestamp": "13/02/2023",
+            "data": {
+                "contract": {
+                    "balance": 50
+                },
+                "action": "withdraw",
+                "amount": 30
+            },
+            "prevHash": "954a1cb2f93e399206afc2fb44212f4e22856e26b49264be8207484aa56d897b",
+            "hash": "4897f2c51cf5cf5b7a75254684ae9b6513d618a928144cd912c0ed2747984ecb"
+        }
+    ]
+}
+  */
+
+
+  console.log("Is blockchain valid? " + GrovNestCoin.isChainValid());   // Is blockchain valid? true
+
+
+
+
+
+
+
+
+  /*
+
  let GrovNestCoin = new Blockchain();
  GrovNestCoin.addBlock(new Block(1,'18/03/2023',{amount: 4}));
  GrovNestCoin.addBlock(new Block(2,'20/03/2023',{amount: 6}));
@@ -64,6 +180,15 @@ console.log('now Is Block-chain valid :'  + GrovNestCoin.isChainValid());   // n
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
  console.log(JSON.stringify(GrovNestCoin, null, 4));
+
+*/
+
+
+
+
+
+
+
 
  /*
  {
